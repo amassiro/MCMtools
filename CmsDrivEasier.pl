@@ -14,37 +14,32 @@ if (!($gensim == 1 || $gensim == 2)) {
 
 system("wget --no-check-certificate https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/${request}");
 
-print "wget --no-check-certificate https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_setup/${request} \n\n";
-
-
 open(REQUEST,"${request}") or die "cannot open $request";;
 @logr=<REQUEST>;
 close(REQUEST);
 
 $ir = 0;
 $theCommand = "";
-$theCommandGetFragment = "";
 
 foreach $liner (@logr) {
+  if ($liner =~ /curl/) { 
+      chomp($liner); 
+      $liner =~ s/github.com/githubusercontent.com/g; 
+      print "\n DOING NOW ${liner} \n";
+      system("${liner}");      
+  }
+
+  if ($liner =~ /scram b/) { 
+      chomp($liner); 
+      print "\n DOING NOW ${liner} \n";
+      system("${liner}");
+  }
   if ($liner =~ /cmsDriver/ && $ir == 0) { 
       $theCommand = $liner; 
       $ir++;
   }
-  if ($liner =~ /curl/) {
-      $theCommandGetFragment = $liner; 
-  }
-}
-
-print " COMMAND = $theCommand";
-print " COMMAND GET FRAGMENT = $theCommandGetFragment";
-
-system("$theCommandGetFragment");
-system("eval `scram runtime -sh`");
-system("scram b");
-
-
+} 
 system("rm -f ${request}");
-
 
 my $rightmarker = rindex($theCommand,'n') - length($theCommand) - 2;
 my $theCommandWithoutMinusNTen = substr($theCommand,0,$rightmarker);
@@ -52,7 +47,7 @@ my $theCommandWithoutMinusNTen = substr($theCommand,0,$rightmarker);
 # $theCommandWithoutMinusNTen =~ s/\"/\\\"/g;
 if ($gensim == 1) {$theCommandWithoutMinusNTen =~ s/GEN,SIM/GEN/g;}
 
-print "$theCommandWithoutMinusNTen -n ${thisnev} \n";
+print "\n DOING NOW $theCommandWithoutMinusNTen -n ${thisnev} \n";
 
 system("${theCommandWithoutMinusNTen} -n ${thisnev}");
 
