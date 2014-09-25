@@ -35,18 +35,17 @@ define vl~ = ve~ vm~ vt~
 # Define multiparticle labels
 define p u c s d b u~ c~ s~ d~ b~ g
 define j  = p
-define l-  = e- mu- ta-
-define l+  = e+ mu+ ta+
+define l e+ e- mu+ mu- ta+ ta-
 # Specify process(es) to run
-generate p p > w- > l- vl~ @0
-add process p p > w- > l- vl~ j @1
-add process p p > w- > l- v~ j j @2
-add process p p > w- > l- vl~ j j j @3
-add process p p > w- > l- vl~ j j j j @4
-add process p p > w+ > l+ vl @5
-add process p p > w+ > l+ vl j @6
-add process p p > w+ > l+ vl j j @7
-add process p p > w+ > l+ vl j j j @8
-add process p p > w+ > l+ vl j j j j @9
+generate p p > w- > e- ve~ @0
+add process p p > w- > e- ve~ j @1
+add process p p > w- > e- ve~ j j @2
+add process p p > w- > e- ve~ j j j @3
+add process p p > w- > e- ve~ j j j j @4
+add process p p > w+ > e+ ve @5
+add process p p > w+ > e+ ve j @6
+add process p p > w+ > e+ ve j j @7
+add process p p > w+ > e+ ve j j j @8
+add process p p > w+ > e+ ve j j j j @9
 # Output processes to MadEvent directory
 output -f
