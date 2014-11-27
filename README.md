@@ -7,7 +7,7 @@ MCMtools
 
 
     cmsLHEtoEOSManager.py -n -f   Int7TeVHw1RoScMiCutOnPeak.lhe
-
+    cmsLHEtoEOSManager.py -n -f wpwpjj_qed_4_qcd_0.lhe
 
 Upload MG gridpack
 ===
